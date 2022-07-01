@@ -16,3 +16,5 @@ def Login(request):
         return HttpResponse('This is first test')
     else:
         return render(request, 'login.html')
+    if request.method == 'GET':
+        return render(request, 'login.html')
