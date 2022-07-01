@@ -81,13 +81,47 @@ def update_student_phone(student_phone, i):
     cur.close()
     conn.close()
 
+def insert_account_data():
+    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='admin123', db='test', charset='utf8mb4')
+    cur = conn.cursor()
+    cur.execute("select id from student_data")
+    i = cur.fetchall()
+    for r in i:
+        print(r[0])
+        a = "INSERT INTO `account_data`( `username`, `password`, `name`, `status`, `userid`, `dd_unionid`, `wx_unionid`, " \
+            "`openid`, `remember_token`, `access_token`, `gender`, `school`, `roles`, `grade`, `student_id`, " \
+            "`students_no`, `id_card`, `mobile`, `teacher_id`, `th_num`, `current_role`, `allowance`, " \
+            "`allowance_updated_at`, `department`, `jobsname`, `ldapstrtus`, `role_type`, `logged_at`, `creator`, " \
+            "`created_at`, `updated_at`, `is_deleted`) VALUES ('{}', " \
+            "'$2y$13$8W6BD.S0zqsB2lMi3A55veKJUpf8Y7o09RnBfG5fdkbEXy1hT2S2y', '{}', 1, 'eL3220OgH1ZTc5UQsc46OPBMdCh4nKrq', " \
+            "'', '', '', '', '', 0, '4', '[\"110\"]', 4, {}, '{}', '{}', '{}', 0, 0, 110, 0, 0, '', '', 0, 1, " \
+            "'2022-06-30 08:54:54', 'admin', '2022-03-25 02:25:18', '2022-06-30 08:54:54', 0);".format(r[0],r[0],r[0],r[0],r[0],r[0])
+        cur.execute(a)
+    conn.commit()
+    cur.close()
+    conn.close()
+
+
+def update_account_data():
+    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='admin123', db='test', charset='utf8mb4')
+    cur = conn.cursor()
+    sql = "update account_data set id_card = %s where student_id = %s"
+    cur.execute("select id,mask_id_no from student_data")
+    i = cur.fetchall()
+    for r in i:
+        print(r[1],r[0])
+        cur.execute(sql, (str(r[1]), r[0]))
+    conn.commit()
+    cur.close()
+    conn.close()
+
 
 if __name__ == '__main__':
     '''for循环生成不同的student_no、student_name'''
-    for i in range(473, 10000):
-        i = i + 1
-        update_student_phone(get_student_phone(), i)
+    # for i in range(473, 10000):
+    #     i = i + 1
+    #     update_student_phone(get_student_phone(), i)
     # update_student_no(student_no(),i)
     # update_student_name(get_student_name(),i)
-
     # print('done')
+    update_account_data()
