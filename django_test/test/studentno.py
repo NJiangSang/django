@@ -7,9 +7,8 @@
 @Software: PyCharm
 """
 import sys
-from random import choice
 import pymysql
-from student_name import RandomUtil
+from django_test.test.student_name import RandomUtil
 
 sys.setrecursionlimit(100000)
 import random
