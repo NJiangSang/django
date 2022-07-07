@@ -6,12 +6,14 @@
 @Email   : xie672088678@163.com
 @Software: PyCharm
 """
+import json
 import os
 
+import requests
 import xlsxwriter
 from django_test.test.sql import select_statement_all, select_execute_sql
 
-"""查询教学班id和班级名称"""
+'''查询教学班id和班级名称'''
 
 
 def Student_class(class_id):
@@ -56,7 +58,28 @@ def Student_xlsx(class_id):
     workbook.close()
 
 
+'''请求接口批量添加教室'''
+
+
+def add_classroom(classroom_name):
+    urls = 'http://cms.api.school.com/auth/login'
+    params = {"login_type": 2, "username": "18190947413", "password": "123456"}
+    r1 = requests.post(urls, data=params)
+    token = r1.json()['data']['token']
+    print(token)
+    headers = {'Content-Type': 'application/json',
+               'Authorization': 'Bearer ' + token,
+               'connection': 'keep-alive',
+               'Host': 'cms.api.pre.school.com',
+               'Referer': 'http://cms.pre.school.com/'}
+    url = 'http://cms.api.pre.school.com/classroom/add'
+    data = {"school_id": '4', "buliding_id":'9', "storey":'5', "classroom_name": classroom_name, "max_number": 40}
+    r = requests.post(url, json=data, headers=headers)
+    print(data)
+    print(r.text)
+
+
 if __name__ == '__main__':
-    for i in range(68,69):
-        Student_xlsx(i)
+    # for i in range(503, 569):
+    #     add_classroom(str(i))
     print("done")
