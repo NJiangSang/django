@@ -83,16 +83,16 @@ def add_classroom(classroom_name):
 
 
 def add_administration(i, class_num):
-    urls = 'http://cms.api.school.com/auth/login'
-    params = {"login_type": 2, "username": "18500976744", "password": "123456"}
-    r1 = requests.post(urls, data=params)
-    token = r1.json()['data']['token']
-    # print(token)
-    headers = {'Content-Type': 'application/json',
-               'Authorization': 'Bearer ' + token,
-               'connection': 'keep-alive',
-               'Host': 'cms.api.school.com',
-               'Referer': 'http://cms.school.com/'}
+    # urls = 'http://cms.api.school.com/auth/login'
+    # params = {"login_type": 2, "username": "18500976744", "password": "123456"}
+    # r1 = requests.post(urls, data=params)
+    # token = r1.json()['data']['token']
+    # # print(token)
+    # headers = {'Content-Type': 'application/json',
+    #            'Authorization': 'Bearer ' + token,
+    #            'connection': 'keep-alive',
+    #            'Host': 'cms.api.school.com',
+    #            'Referer': 'http://cms.school.com/'}
     url = 'http://cms.api.school.com/administration/add'
     class_name = "高2025届{}班".format(class_num)
     data = {"administrative_type_id": "1",
@@ -104,14 +104,22 @@ def add_administration(i, class_num):
             "people_min": 1,
             "people_max": 40
             }
-    r = requests.post(url, json=data, headers=headers)
-    # print(data)
-    print(r.text)
+    # r = requests.post(url, json=data, headers=headers)
+    print(data)
+    # print(r.text)
 
 
 if __name__ == '__main__':
-    for i in range(125, 192):
-
-        for class_num in range(102, 169):
-            add_administration(str(i),class_num)
+    #定义一个125到192的id列表
+    # class_num = [i for i in range(102, 169)]
+    # i =  [i for i in range(125, 192)]
+    # for j in range (0,len(class_num)):
+    #     print(len(class_num))
+    #     add_administration(str(i[j]), class_num[j])
+    # students_id = [i for i in range(5904, 6137)]
+    # class_id = [i for i in range(12, 180)]
+    # i = class_id *2
+    # for j in range(0, len(students_id)):
+    #     sql = '''update student_data set class_id = {} where id = {};'''.format(i[j],students_id[j])
+    #     print(sql)
     print("done")
