@@ -58,7 +58,7 @@ def Student_xlsx(class_id):
     workbook.close()
 
 
-'''请求接口批量添加教室'''
+'''批量添加教室'''
 
 
 def add_classroom(classroom_name):
@@ -70,16 +70,48 @@ def add_classroom(classroom_name):
     headers = {'Content-Type': 'application/json',
                'Authorization': 'Bearer ' + token,
                'connection': 'keep-alive',
-               'Host': 'cms.api.pre.school.com',
-               'Referer': 'http://cms.pre.school.com/'}
-    url = 'http://cms.api.pre.school.com/classroom/add'
-    data = {"school_id": '4', "buliding_id":'9', "storey":'5', "classroom_name": classroom_name, "max_number": 40}
+               'Host': 'cms.api.school.com',
+               'Referer': 'http://cms.school.com/'}
+    url = 'http://cms.api.school.com/classroom/add'
+    data = {"school_id": '4', "buliding_id": '9', "storey": '5', "classroom_name": classroom_name, "max_number": 40}
     r = requests.post(url, json=data, headers=headers)
     print(data)
     print(r.text)
 
 
+'''子管理员批量添加行政班'''
+
+
+def add_administration(i, class_num):
+    urls = 'http://cms.api.school.com/auth/login'
+    params = {"login_type": 2, "username": "18500976744", "password": "123456"}
+    r1 = requests.post(urls, data=params)
+    token = r1.json()['data']['token']
+    # print(token)
+    headers = {'Content-Type': 'application/json',
+               'Authorization': 'Bearer ' + token,
+               'connection': 'keep-alive',
+               'Host': 'cms.api.school.com',
+               'Referer': 'http://cms.school.com/'}
+    url = 'http://cms.api.school.com/administration/add'
+    class_name = "高2025届{}班".format(class_num)
+    data = {"administrative_type_id": "1",
+            "class_room_id": ["9", "5", i],
+            "teacher_id": ["324"],
+            "grade_id": "4",
+            "class_name": class_name,
+            "school_id": "4",
+            "people_min": 1,
+            "people_max": 40
+            }
+    r = requests.post(url, json=data, headers=headers)
+    # print(data)
+    print(r.text)
+
+
 if __name__ == '__main__':
-    # for i in range(503, 569):
-    #     add_classroom(str(i))
+    for i in range(125, 192):
+
+        for class_num in range(102, 169):
+            add_administration(str(i),class_num)
     print("done")

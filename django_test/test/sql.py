@@ -20,10 +20,10 @@ def connect(ssid):
     """
     try:
         db = pymysql.connect(
-            host=str(config.DB_HOST),
-            port=int(config.DB_PORT),
-            user=str(config.DB_USERNAME),
-            password=str(config.DB_PASSWORD),
+            host=str(config.test_DB_HOST),
+            port=int(config.test_DB_PORT),
+            user=str(config.test_DB_USERNAME),
+            password=str(config.test_DB_PASSWORD),
             database=ssid,
             cursorclass=pymysql.cursors.DictCursor,
             charset='utf8'
