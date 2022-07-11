@@ -6,12 +6,12 @@
 @Email   : xie672088678@163.com
 @Software: PyCharm
 """
-import json
+from student_login import Pc_login
 import os
-
 import requests
 import xlsxwriter
 from django_test.test.sql import select_statement_all, select_execute_sql
+token = Pc_login().login()
 
 '''查询教学班id和班级名称'''
 
@@ -62,20 +62,14 @@ def Student_xlsx(class_id):
 
 
 def add_classroom(classroom_name):
-    urls = 'http://cms.api.school.com/auth/login'
-    params = {"login_type": 2, "username": "18190947413", "password": "123456"}
-    r1 = requests.post(urls, data=params)
-    token = r1.json()['data']['token']
     print(token)
     headers = {'Content-Type': 'application/json',
                'Authorization': 'Bearer ' + token,
-               'connection': 'keep-alive',
-               'Host': 'cms.api.school.com',
-               'Referer': 'http://cms.school.com/'}
-    url = 'http://cms.api.school.com/classroom/add'
+               'connection': 'keep-alive'}
+    url = 'http://cms.api.inner.honghueducation.com/classroom/add'
     data = {"school_id": '4', "buliding_id": '9', "storey": '5', "classroom_name": classroom_name, "max_number": 40}
     r = requests.post(url, json=data, headers=headers)
-    print(data)
+    # print(data)
     print(r.text)
 
 
@@ -83,17 +77,7 @@ def add_classroom(classroom_name):
 
 
 def add_administration(i, class_num):
-    # urls = 'http://cms.api.school.com/auth/login'
-    # params = {"login_type": 2, "username": "18500976744", "password": "123456"}
-    # r1 = requests.post(urls, data=params)
-    # token = r1.json()['data']['token']
-    # # print(token)
-    # headers = {'Content-Type': 'application/json',
-    #            'Authorization': 'Bearer ' + token,
-    #            'connection': 'keep-alive',
-    #            'Host': 'cms.api.school.com',
-    #            'Referer': 'http://cms.school.com/'}
-    url = 'http://cms.api.school.com/administration/add'
+    url = 'http://cms.api.inner.honghueducation.com/administration/add'
     class_name = "高2025届{}班".format(class_num)
     data = {"administrative_type_id": "1",
             "class_room_id": ["9", "5", i],
@@ -123,3 +107,4 @@ if __name__ == '__main__':
     #     sql = '''update student_data set class_id = {} where id = {};'''.format(i[j],students_id[j])
     #     print(sql)
     print("done")
+    add_classroom('高2025届1班')
