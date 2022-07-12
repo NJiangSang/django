@@ -9,6 +9,7 @@
 import logging
 
 import requests
+
 import config
 
 '''封装登录方法'''
@@ -25,6 +26,7 @@ class Pc_login:
             'Accept': 'application/json'
         }
 
+    @property
     def login(self):
         if self.login_type == 4:
             data = {
@@ -46,3 +48,8 @@ class Pc_login:
         else:
             token = r.json()['data']['token']
         return token
+
+
+if __name__ == '__main__':
+    x = Pc_login().login()
+    print(x)

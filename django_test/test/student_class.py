@@ -62,14 +62,12 @@ def Student_xlsx(class_id):
 
 
 def add_classroom(classroom_name):
-    print(token)
     headers = {'Content-Type': 'application/json',
                'Authorization': 'Bearer ' + token,
                'connection': 'keep-alive'}
     url = 'http://cms.api.inner.honghueducation.com/classroom/add'
     data = {"school_id": '4', "buliding_id": '9', "storey": '5', "classroom_name": classroom_name, "max_number": 40}
     r = requests.post(url, json=data, headers=headers)
-    # print(data)
     print(r.text)
 
 
@@ -88,9 +86,11 @@ def add_administration(i, class_num):
             "people_min": 1,
             "people_max": 40
             }
-    # r = requests.post(url, json=data, headers=headers)
-    print(data)
-    # print(r.text)
+    headers = {'Content-Type': 'application/json',
+               'Authorization': 'Bearer ' + token,
+               'connection': 'keep-alive'}
+    r = requests.post(url, json=data, headers=headers)
+    print(r.text)
 
 
 if __name__ == '__main__':
