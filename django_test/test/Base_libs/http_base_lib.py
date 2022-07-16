@@ -127,7 +127,7 @@ Examples:
                 logging.error(u'【期望响应的实体内容】:%s' % _dict_sort(except_response_data['body']))
                 raise CompareError
         else:
-            logging.warning(u'【用例执行结果】：【成功！】\n【但实际响应结果跟预期字段不符合。】')
+            logging.info(u'【用例执行结果】：【成功！】\n【但实际响应结果跟预期字段不符合。】')
     else:
         logging.error(u'【用例执行结果】：【失败！】\n【用例失败原因】：【实际响应状态码跟预期不符合。】')
         logging.error(u'【实际响应的状态码为】:%s' % resp_status, )
@@ -197,7 +197,7 @@ def _merge_resp_to_exp(exp_data, resp_data):
                 exp_data[i] = resp_data[i]
     except TypeError:
         print(u'字典里面的键值比较出现错误，请检查期望结果跟实际响应数据。大概率是期望数据没有传正确导致。')
-    return exp_data
+    return 0
 
 
 def _dict_sort(input_data, use_dumps=True):

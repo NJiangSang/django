@@ -9,7 +9,7 @@
 import os
 import requests
 import xlsxwriter
-from django_test.test.sql import select_statement_all, select_execute_sql
+from django_test.test.Func.sql import select_statement_all
 
 '''查询教学班id和班级名称'''
 

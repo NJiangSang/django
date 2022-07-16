@@ -7,7 +7,7 @@
 @Software: PyCharm
 """
 
-from django_test.test.sql import select_statement_all, select_execute_sql
+from django_test.test.Func.sql import select_statement_all, select_execute_sql
 
 
 def Teacher_student_info(role_id):

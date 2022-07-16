@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 """
-@File    : students_common.py
+@File    : http_common.py
 @Time    : 2022/7/12 2:24 PM
 @Author  : nanjiang.xie
 @Email   : xie672088678@163.com
@@ -10,7 +10,7 @@ import urllib.parse
 
 from django.template.base import logger
 
-import config
+from django_test.test.config import api_pc
 
 
 def _combine_url(host, uri, query):
@@ -41,7 +41,7 @@ def get_request_data(method, path, query, body, token, header_ex, host=None, fil
     :return: 请求数据模板
     """
     if host is None:
-        host = config.prod_api_pc
+        host = api_pc
     url = _combine_url(host, path, query)
 
     headers = {

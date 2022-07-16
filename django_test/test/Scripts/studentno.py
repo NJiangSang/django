@@ -8,7 +8,7 @@
 """
 import sys
 import pymysql
-from django_test.test.student_name import RandomUtil
+from django_test.test.Scripts.student_name import RandomUtil
 
 sys.setrecursionlimit(100000)
 import random

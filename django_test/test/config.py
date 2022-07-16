@@ -4,9 +4,9 @@ Created on Thu Jan  2 14:30:00 2020
 配置文件集合
 """
 #配置环境域名
-prod_api_pc = 'cms.api.inner.honghueducation.com'
-prod_username = '18190947413'
-prod_password = '123456'
+api_pc = 'cms.api.inner.honghueducation.com'
+username = '18190947413'
+password = '802300'
 login_type = 2
 client_port = 80
 # 数据库信息
