@@ -1,2 +1,2 @@
 ./.idea
-/django_test/test/config/
+/django_test/test/config/*.py
