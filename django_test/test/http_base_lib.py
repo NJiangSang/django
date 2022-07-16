@@ -82,7 +82,7 @@ Examples:
     req_url = resp.request.url
     req_headers = resp.request.headers
     req_content = resp.request.body
-    print("打印接口返回******：{}".format(resp.content))
+    # print("调试打印接口返回******：{}".format(resp.content))
     # 为了将发送数据中文可以打印显示。不为空则转换。
     if req_content and type(req_content) is dict:
         req_content = json.dumps(json.loads(req_content), ensure_ascii=False)
@@ -94,12 +94,12 @@ Examples:
     resp_content = resp.content
     try:
         if resp_status == status_err:
-            logging.info('服务器返回错误码：{}'.format(resp_status))
+            logging.error('服务器返回错误码：{}'.format(resp_status))
         else:
             resp_content = json.loads(resp_content)
 
     except ValueError:
-        logging.info(u'服务器真实返回：：%s' % resp_content)
+        logging.error(u'服务器真实返回：：%s' % resp_content)
         raise ValueError(u'响应的数据非JSON格式，解析出错！')
 
     logging.info(u'【请求行】：%s %s' % (req_method, req_url))
@@ -107,14 +107,14 @@ Examples:
     try:
         logging.info(u'【请求数据】：%s' % req_content)
     except:
-        logging.info(u'【请求数据】：打印失败')
+        logging.error(u'【请求数据】：打印失败')
 
     logging.info(u'【状态行】：%s %s' % (resp_status, resp_reason))
     logging.info(u'【响应头】：%s' % resp_headers)
     try:
         logging.info(u'【响应数据】：%s' % resp_content)
     except:
-        logging.info(u'【响应数据】：打印失败', )
+        logging.error(u'【响应数据】：打印失败', )
 
     if resp_status == except_response_data['status']:
         if len(except_response_data['body']) == len(resp_content):
@@ -122,16 +122,16 @@ Examples:
             if resp_content == except_response_data['body']:
                 return 0
             else:
-                logging.info(u'【用例执行结果】：【失败！】\n【用例失败原因】：【实际响应结果跟预期不符合。】')
-                logging.info(u'【实际响应的实体内容】:%s' % _dict_sort(resp_content), )
-                logging.info(u'【期望响应的实体内容】:%s' % _dict_sort(except_response_data['body']))
+                logging.error(u'【用例执行结果】：【失败！】\n【用例失败原因】：【实际响应结果跟预期不符合。】')
+                logging.error(u'【实际响应的实体内容】:%s' % _dict_sort(resp_content), )
+                logging.error(u'【期望响应的实体内容】:%s' % _dict_sort(except_response_data['body']))
                 raise CompareError
         else:
-            logging.info(u'【用例执行结果】：【成功！】\n【但实际响应结果跟预期字段不符合。】')
+            logging.warning(u'【用例执行结果】：【成功！】\n【但实际响应结果跟预期字段不符合。】')
     else:
-        logging.info(u'【用例执行结果】：【失败！】\n【用例失败原因】：【实际响应状态码跟预期不符合。】')
-        logging.info(u'【实际响应的状态码为】:%s' % resp_status, )
-        logging.info(u'【期望响应的状态码为】:%s' % except_response_data['status'])
+        logging.error(u'【用例执行结果】：【失败！】\n【用例失败原因】：【实际响应状态码跟预期不符合。】')
+        logging.error(u'【实际响应的状态码为】:%s' % resp_status, )
+        logging.error(u'【期望响应的状态码为】:%s' % except_response_data['status'])
         raise StatusCompareError
 
 
@@ -155,16 +155,16 @@ def _send_http_request(test_data, timeout=5.0):
         resp = http.request('HEAD', url, json=body, headers=headers, timeout=timeout)
 
     elif method == 'GET':
-        resp = http.request('GET', url, json=body, headers=headers,  timeout=timeout)
+        resp = http.request('GET', url, json=body, headers=headers, timeout=timeout)
 
     elif method == 'POST':
         resp = http.request('POST', url, json=body, headers=headers, verify=False, timeout=timeout)
 
     elif method == 'PUT':
-        resp = http.request('PUT', url, json=body, headers=headers,  timeout=timeout)
+        resp = http.request('PUT', url, json=body, headers=headers, timeout=timeout)
 
     elif method == 'DELETE':
-        resp = http.request('DELETE', url, json=body, headers=headers,  timeout=timeout)
+        resp = http.request('DELETE', url, json=body, headers=headers, timeout=timeout)
     else:
         raise Exception(u'请求类型错误！当前请求的类型为：%s' % method)
 
@@ -197,7 +197,7 @@ def _merge_resp_to_exp(exp_data, resp_data):
                 exp_data[i] = resp_data[i]
     except TypeError:
         print(u'字典里面的键值比较出现错误，请检查期望结果跟实际响应数据。大概率是期望数据没有传正确导致。')
-    return 0
+    return exp_data
 
 
 def _dict_sort(input_data, use_dumps=True):
