@@ -18,7 +18,7 @@ def _combine_url(host, uri, query):
     # 按参数组装完整的url
     :return:
     """
-    base_url = "https://" + str(host) + uri
+    base_url = "http://" + str(host) + uri
     if query is None:
         url = base_url
     else:
@@ -32,7 +32,6 @@ def _combine_url(host, uri, query):
 
 def get_request_data(method, path, query, body, token, header_ex, host=None, files=None):
     """
-    获取向服务器请求的数据模板
     :param method: HTTP请求的方法[]
     :param path: 请求路径的path，API中接口的路径地址。
     :param query: URL的query内容，如果有的话传，没有则为None。
@@ -65,6 +64,7 @@ def get_request_data(method, path, query, body, token, header_ex, host=None, fil
 
     return ret
 
+
 class Template(object):
     def __init__(self, token=None):
         self.token = token
@@ -88,7 +88,6 @@ class Template(object):
                 'data': self.data
             }
         }
-        logger.info(u'******************************************************')
         logger.info(u'*********************本次请求的参数*********************')
         logger.info(u'传进来的参数：Method:%s, Path:%s, Query:%s, Body:%s' % (self.method, self.path, self.query, self.body))
         logger.info(u'发送请求数据：%s' % req_data)
@@ -96,6 +95,7 @@ class Template(object):
         logger.info(u'******************************************************')
         return req_data, resp_data
 
+
 if __name__ == '__main__':
-    a = get_request_data('GET', '/api/v1/user/info', None, None, 'ey', None)
+    a = get_request_data('GET', '/v1/user/info', None, None, None,None)
     print(a)

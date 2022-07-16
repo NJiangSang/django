@@ -6,50 +6,46 @@
 @Email   : xie672088678@163.com
 @Software: PyCharm
 """
-import logging
 
-import requests
-
-import config
-
+from http_base_lib import http_base_test
+from students_common import Template
 '''封装登录方法'''
 
 
-class Pc_login:
-    def __init__(self):
-        self.url = config.prod_api_pc + 'auth/login'
-        self.username = config.prod_username
-        self.password = config.prod_password
-        self.login_type = config.login_type
-        self.headers = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
+class post_login_user_password(Template):
+    def __init__(self, username, password, login_type, **kwargs):
+        super(post_login_user_password, self).__init__()
+        self.method = 'POST'
+        self.path = '/auth/login'
+        if login_type == 3:
+            self.body = {
+                'username': username,
+                'password': password,
+                'login_type': 3,
+                "wx_unionid": username
+            }
+        else:
+            self.body = {
+                'username': username,
+                'password': password,
+                'login_type': login_type
+            }
+        self.status = kwargs.get('status', 200)
+        self.code = kwargs.get('code', '0')
+        self.data = kwargs.get('data', '*OUT*')
+        self.errMsg = kwargs.get('errMsg', '*OUT*')
 
-    @property
-    def login(self):
-        if self.login_type == 4:
-            data = {
-                'username': self.username,
-                'password': self.password,
-                'login_type': 4,
-                "wx_unionid": "18190947413"
-            }
-        else:
-            data = {
-                'username': self.username,
-                'password': self.password,
-                'login_type': self.login_type
-            }
-        r = requests.post(self.url, json=data, headers=self.headers)
-        # 判断异常响应r为空时
-        if r.status_code == 500:
-            logging.error('登录失败，请检查网络')
-        else:
-            token = r.json()['data']['token']
-        return token
+
+def req_data_post_login_user_password(username, password, login_type, kwargs=None):
+    if kwargs is not None:
+        get = post_login_user_password(username, password, login_type, **kwargs)
+    else:
+        get = post_login_user_password(username, password, login_type)
+    request, response = get.get_data()
+    http_base_test(request, response)
+    return response.json()['data']['token']
 
 
 if __name__ == '__main__':
-    x = Pc_login().login()
+    x = req_data_post_login_user_password('18190947413', '802300', 2)
     print(x)
