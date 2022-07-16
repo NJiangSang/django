@@ -7,7 +7,7 @@
 @Software: PyCharm
 """
 
-from http_base_lib import http_base_test
+from http_base_lib import http_base_test, get_response_content
 from students_common import Template
 '''封装登录方法'''
 
@@ -43,7 +43,7 @@ def req_data_post_login_user_password(username, password, login_type, kwargs=Non
         get = post_login_user_password(username, password, login_type)
     request, response = get.get_data()
     http_base_test(request, response)
-    return response.json()['data']['token']
+    return get_response_content(request).get('data').get('token')
 
 
 if __name__ == '__main__':

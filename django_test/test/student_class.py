@@ -6,12 +6,10 @@
 @Email   : xie672088678@163.com
 @Software: PyCharm
 """
-from student_login import Pc_login
 import os
 import requests
 import xlsxwriter
 from django_test.test.sql import select_statement_all, select_execute_sql
-token = Pc_login().login()
 
 '''查询教学班id和班级名称'''
 
