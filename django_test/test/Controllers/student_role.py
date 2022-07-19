@@ -14,6 +14,7 @@ token = req_data_post_login_user_password()
 
 
 class get_site_grades(Template):
+    """获取学校的年级"""
     def __init__(self, token, **kwargs):
         super(get_site_grades, self).__init__(token)
         self.method = 'GET'

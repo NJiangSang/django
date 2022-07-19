@@ -40,10 +40,10 @@ class post_login_user_password(Template):
 
 def req_data_post_login_user_password(username=username, password=password, login_type=login_type, kwargs=None):
     if kwargs is not None:
-        get = post_login_user_password(username, password, login_type, **kwargs)
+        post = post_login_user_password(username, password, login_type, **kwargs)
     else:
-        get = post_login_user_password(username, password, login_type)
-    request, response = get.get_data()
+        post = post_login_user_password(username, password, login_type)
+    request, response = post.get_data()
     http_base_test(request, response)
     token = get_response_content(request).get('data').get('token')
     return token
