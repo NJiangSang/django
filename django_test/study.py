@@ -13,6 +13,7 @@ from requests import RequestException
 import requests
 import pymysql
 
+
 def get_html(url):
     """获取网页数据"""
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -24,6 +25,7 @@ def get_html(url):
         return None
     except RequestException:
         return None
+
 
 def parse_html(html):
     """解析网页数据"""
@@ -45,12 +47,15 @@ def parse_html(html):
         data_list.append(title)
     return data_list
 
+
 """创建数据库表如果存在则不创建"""
+
+
 def create_table():
     """创建数据库表"""
     db = pymysql.connect(host="localhost", user="root", password="admin123", db="test")
     cursor = db.cursor()
-    #如果存在则不创建
+    # 如果存在则不创建
     try:
         sql = "CREATE TABLE `test` (`id` int(11) NOT NULL AUTO_INCREMENT, `href` varchar(255) NOT NULL, `title` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;"
         cursor.execute(sql)
@@ -59,7 +64,11 @@ def create_table():
         print(e)
         db.rollback()
     db.close()
+
+
 """存储网页数据到本地数据库"""
+
+
 def save_data(data_list):
     """存储数据到本地数据库"""
     db = pymysql.connect(host="localhost", user="root", password="admin123", db="test")
@@ -68,7 +77,11 @@ def save_data(data_list):
     cursor.executemany(sql, data_list)
     db.commit()
     db.close()
+
+
 """函数调用"""
+
+
 def main():
     """主函数"""
     # 获取网页数据
@@ -79,5 +92,7 @@ def main():
     # 存储数据到本地数据库
     create_table()
     save_data(data_list)
+
+
 if __name__ == '__main__':
     main()

@@ -95,7 +95,8 @@ def insert_account_data():
             "`created_at`, `updated_at`, `is_deleted`) VALUES ('{}', " \
             "'$2y$13$8W6BD.S0zqsB2lMi3A55veKJUpf8Y7o09RnBfG5fdkbEXy1hT2S2y', '{}', 1, 'eL3220OgH1ZTc5UQsc46OPBMdCh4nKrq', " \
             "'', '', '', '', '', 0, '4', '[\"110\"]', 4, {}, '{}', '{}', '{}', 0, 0, 110, 0, 0, '', '', 0, 1, " \
-            "'2022-06-30 08:54:54', 'admin', '2022-03-25 02:25:18', '2022-06-30 08:54:54', 0);".format(r[0],r[0],r[0],r[0],r[0],r[0])
+            "'2022-06-30 08:54:54', 'admin', '2022-03-25 02:25:18', '2022-06-30 08:54:54', 0);".format(r[0], r[0], r[0],
+                                                                                                       r[0], r[0], r[0])
         cur.execute(a)
     conn.commit()
     cur.close()
@@ -109,7 +110,7 @@ def update_account_data():
     cur.execute("select id,student_no from student_data")
     i = cur.fetchall()
     for r in i:
-        print(r[1],r[0])
+        print(r[1], r[0])
         cur.execute(sql, (str(r[1]), r[0]))
     conn.commit()
     cur.close()
@@ -119,7 +120,7 @@ def update_account_data():
 if __name__ == '__main__':
     '''for循环生成不同的student_no、student_name'''
     # for i in range(473, 10000):
-        # i = i + 1
+    # i = i + 1
     #     update_student_phone(get_student_phone(), i)
     #     update_student_no(student_no(),i)
     #     update_student_name(get_student_name(),i)

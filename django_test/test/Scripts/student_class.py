@@ -9,7 +9,10 @@
 import os
 import requests
 import xlsxwriter
+
+from django_test.test.Controllers.student_login import req_data_post_login_user_password
 from django_test.test.Func.sql import select_statement_all
+token = req_data_post_login_user_password()
 
 '''查询教学班id和班级名称'''
 
@@ -40,7 +43,7 @@ def Student_xlsx(class_id):
         class_id)
     r1 = select_statement_all('test_school', sql)
     # print(*r1, sep='\n')
-    # 存储到xlxs文件名称带班级id,指定文件夹路径不存在则新建
+    # 存储到xlsx文件名称带班级id,指定文件夹路径不存在则新建
     file_name = './test/student_class/{}.xlsx'.format(class_id)
     if not os.path.exists(os.path.dirname(file_name)):
         os.makedirs(os.path.dirname(file_name))
