@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'book',  # 新增app
     'data',  # 新增app
-    'travel'  # 新增app
 ]
 
 MIDDLEWARE = [

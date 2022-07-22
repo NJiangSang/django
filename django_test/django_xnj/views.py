@@ -13,8 +13,8 @@ from django.shortcuts import render
 def Login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
-        return HttpResponse('This is first test')
-    else:
-        return render(request, 'login.html')
-    if request.method == 'GET':
+        password = request.POST.get('password')
+        if username == 'admin' and password == '123456':
+            return HttpResponse('This is first test')
+    elif request.method == 'GET':
         return render(request, 'login.html')
