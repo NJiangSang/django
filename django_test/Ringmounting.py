@@ -6,7 +6,6 @@
 @Email   : xie672088678@163.com
 @Software: PyCharm
 """
-from typing import Union, Any
 
 
 def wuqi(a=0, b=0, c=0):
