@@ -50,5 +50,5 @@ def req_data_post_login_user_password(username=username, password=password, logi
 
 
 if __name__ == '__main__':
-    x = req_data_post_login_user_password('18190947413', '802300', 2)
+    x = req_data_post_login_user_password('18190947413', '80230000', 2)
     print(x)
