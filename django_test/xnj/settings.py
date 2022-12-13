@@ -12,10 +12,12 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+sys.path.insert(0,os.path.join(BASE_DIR, 'modules'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -23,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=d1%p1^qu&&uhr%j-u4zlc2f=($@*^0o8=l@&_#ss!4l-ze^67'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*'] #允许所有来源访问
 
 # Application definition
 
@@ -36,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'book',  # 新增app
-    'data',  # 新增app
+    'center',  # 新加的app
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -50,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'django_xnj.urls'
+ROOT_URLCONF = 'xnj.urls'
 
 TEMPLATES = [
     {
@@ -68,15 +70,22 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'django_xnj.wsgi.application'
+WSGI_APPLICATION = 'xnj.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',  # sqlite3切换到mysql
+        'NAME': 'test',
+        'USER': 'root',
+        'PASSWORD': 'Admin123!',
+        # 'HOST': '127.0.0.1',
+        'PORT': 3306,
+        'OPTIONS': {
+            'autocommit': True,
+        },
     }
 }
 
@@ -120,3 +129,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
