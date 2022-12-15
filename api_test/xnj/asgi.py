@@ -1,5 +1,5 @@
 """
-ASGI config for django_test project.
+ASGI config for api_test project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
